@@ -1,5 +1,4 @@
 'use client';
-import { useTodos } from '@/shared/hooks/useTodos';
 
 type Todo = {
     id: number;
@@ -9,17 +8,17 @@ type Todo = {
 
 type Props = {
     todo: Todo;
+    onToggle: (id: number) => void;
+    onDelete: (id: number) => void;
 };
 
-export default function TodoItem({ todo }: Props) {
-    const { toggleTodo, deleteTodo } = useTodos();
-
+export default function TodoItem({ todo, onToggle, onDelete }: Props) {
     return (
         <li style={{ marginTop: 10 }}>
             <input
                 type="checkbox"
                 checked={todo.completed}
-                onChange={() => toggleTodo(todo.id)}
+                onChange={() => onToggle(todo.id)}
             />
             <span
                 style={{
@@ -27,9 +26,9 @@ export default function TodoItem({ todo }: Props) {
                     marginLeft: 8,
                 }}
             >
-                {todo.text}
-            </span>
-            <button onClick={() => deleteTodo(todo.id)} style={{ marginLeft: 8 }}>
+        {todo.text}
+      </span>
+            <button onClick={() => onDelete(todo.id)} style={{ marginLeft: 8 }}>
                 x
             </button>
         </li>

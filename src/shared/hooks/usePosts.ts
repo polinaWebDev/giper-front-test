@@ -26,7 +26,7 @@ export function usePosts() {
             const data = await res.json();
             setPosts((prev) => [...prev, ...data]);
         } catch (error) {
-            console.error('Failed to fetch posts:', error);
+            console.error("Failed to fetch posts:", error);
         } finally {
             setLoading(false);
         }
