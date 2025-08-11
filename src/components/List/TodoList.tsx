@@ -1,22 +1,19 @@
 'use client';
-
 import TodoItem from "@/entity/task/Task";
 import AddTodo from "@/components/Button/button";
-import {useTodos} from "@/shared/hooks/useTodos";
+import { useTodos } from "@/shared/hooks/useTodos";
 
 export default function TodoList() {
-    const { todos, addTodo, toggleTodo, deleteTodo } = useTodos();
+    const { todos } = useTodos();
 
     return (
         <>
-            <AddTodo onAdd={addTodo} />
+            <AddTodo />
             <ul>
                 {todos.map((todo) => (
                     <TodoItem
                         key={todo.id}
                         todo={todo}
-                        onToggle={toggleTodo}
-                        onDelete={deleteTodo}
                     />
                 ))}
             </ul>

@@ -19,12 +19,17 @@ export function usePosts() {
 
     const fetchPosts = async (page: number) => {
         setLoading(true);
-        const res = await fetch(
-            `https://jsonplaceholder.typicode.com/posts?_limit=${LIMIT}&_page=${page}`
-        );
-        const data = await res.json();
-        setPosts((prev) => [...prev, ...data]);
-        setLoading(false);
+        try {
+            const res = await fetch(
+                `https://jsonplaceholder.typicode.com/posts?_limit=${LIMIT}&_page=${page}`
+            );
+            const data = await res.json();
+            setPosts((prev) => [...prev, ...data]);
+        } catch (error) {
+            console.error('Failed to fetch posts:', error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const loadMore = () => setPage((prev) => prev + 1);

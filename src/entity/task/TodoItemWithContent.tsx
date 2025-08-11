@@ -1,18 +1,8 @@
-'use client';
-import { useTodos } from '@/shared/hooks/useTodos';
+import {useTodoContext} from "@/components/List/TodoContext";
+import {Todo} from "@/shared/hooks/useTodos";
 
-type Todo = {
-    id: number;
-    text: string;
-    completed: boolean;
-};
-
-type Props = {
-    todo: Todo;
-};
-
-export default function TodoItem({ todo }: Props) {
-    const { toggleTodo, deleteTodo } = useTodos();
+export default function TodoItemWithContext({ todo }: { todo: Todo }) {
+    const { toggleTodo, deleteTodo } = useTodoContext();
 
     return (
         <li style={{ marginTop: 10 }}>

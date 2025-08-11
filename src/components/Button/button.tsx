@@ -1,30 +1,28 @@
 'use client';
-
 import { useState } from 'react';
+import { useTodos } from '@/shared/hooks/useTodos';
 
-type Props = {
-    onAdd: (text: string) => void;
-};
+export default function AddTodo() {
+    const [text, setText] = useState('');
+    const { addTodo } = useTodos();
 
-export default function AddTodo({ onAdd }: Props) {
-    const [input, setInput] = useState('');
-
-    const handleAdd = () => {
-        if (!input.trim()) return;
-        onAdd(input);
-        setInput('');
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (text.trim()) {
+            addTodo(text.trim());
+            setText('');
+        }
     };
 
     return (
-        <div>
+        <form onSubmit={handleSubmit}>
             <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Новая задача"
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Добавить новую задачу..."
             />
-            <button onClick={handleAdd} style={{ marginLeft: 8 }}>
-                Добавить
-            </button>
-        </div>
+            <button type="submit">Добавить</button>
+        </form>
     );
 }
